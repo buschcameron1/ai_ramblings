@@ -19,17 +19,16 @@ def main():
         
     if not request.args.get('article'):
         title = "Welcome to the home page!"
-        article = "Click a link above to begin diving into AI slop.\nJust remember, all the content here is AI generated and almost guaranteed to be incorrect.\nAlso loading times will be long, please be patient."
+        article = "Click a link above to begin diving into AI slop.<br>Just remember, all the content here is AI generated and almost guaranteed to be incorrect.<br>Also loading times will be long, please be patient."
 
     else:
         title = request.args.get('article')
 
-        body["prompt"] = f"write a short article about {title}"
+        body["prompt"] = f"write a very short essay about {title} and list a few interesting facts about it."
         article = requests.post("http://192.168.1.100:11434/api/generate", json=body)
         article = json.loads(article.content)
-        article = article['response']
    
-    return render_template('/index.html', title=title, article=article, links=links)
+    return render_template('/index.html', title=title, article=markdown(article['response']), links=links)
 
 @app.route("/why", methods = ["GET"])
 def why():
