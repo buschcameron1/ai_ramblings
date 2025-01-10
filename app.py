@@ -31,16 +31,16 @@ def main():
             article = markdown(article['response'])
 
             commentNum = random.randrange(1, 15)
-            body["prompt"] = f"generate {commentNum} random innternet usernames. Return only usernames, comma separated."
+            body["prompt"] = f"generate {commentNum} random innternet usernames. Return only usernames with no other content, comma separated with no spaces."
             usernames = requests.post("http://192.168.1.103:11434/api/generate", json=body)
             usernames = json.loads(usernames.content)
-            usernames = usernames['response'].split(", ")
+            usernames = usernames['response'].split(",")
 
-            body["prompt"] = f"{commentNum} ragebait incorrect comment about the following article. Return only comments, comma seperated. article: {article}"
+            body["prompt"] = f"generate {commentNum} ragebait incorrect umm actually style comments about the following article. Return comments only with no other content, semicolon seperated. article: {article}"
 
-            comments = requests.post("http://http://192.168.1.103:11434/api/generate", json=body)
+            comments = requests.post("http://192.168.1.103:11434/api/generate", json=body)
             comments = json.loads(comments.content)
-            comments = comments['response'].split(", ")
+            comments = comments['response'].split(";")
 
             comments = dict(zip(usernames, comments))
 
