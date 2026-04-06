@@ -6,8 +6,11 @@ app = Flask(__name__)
 
 @app.route("/", methods = ["GET", "POST"])
 def main():
-    links = requests.get("https://random-word-api.herokuapp.com/word?number=4")
+    links = requests.get("https://random-words-api.kushcreates.com/api?language=en&words=4")
     links = json.loads(links.content)
+    words = []
+    for word in links:
+        words.append(word['word'])
     comments = {}
     usernames = {}
         
@@ -46,7 +49,7 @@ def main():
 
 
    
-    return render_template('/index.html', title=title, article=article, links=links, comments=comments)
+    return render_template('/index.html', title=title, article=article, links=words, comments=comments)
 
 @app.route("/why", methods = ["GET"])
 def why():
