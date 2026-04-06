@@ -26,19 +26,19 @@ def main():
                 "prompt": f"write a short essay about {title} and list a few interesting facts about it.",
                 "stream": False
             }
-            article = requests.post("http://192.168.1.103:11434/api/generate", json=body)
+            article = requests.post("http://LAPTOP-120VC2FE.local:11434/api/generate", json=body)
             article = json.loads(article.content)
             article = markdown(article['response'])
 
             commentNum = random.randrange(1, 15)
             body["prompt"] = f"generate {commentNum} random innternet usernames. Return only usernames with no other content, comma separated with no spaces."
-            usernames = requests.post("http://192.168.1.103:11434/api/generate", json=body)
+            usernames = requests.post("http://LAPTOP-120VC2FE.local:11434/api/generate", json=body)
             usernames = json.loads(usernames.content)
             usernames = usernames['response'].split(",")
 
             body["prompt"] = f"generate {commentNum} ragebait incorrect umm actually style comments about the following article. Return comments only with no other content, semicolon seperated. article: {article}"
 
-            comments = requests.post("http://192.168.1.103:11434/api/generate", json=body)
+            comments = requests.post("http://LAPTOP-120VC2FE.local:11434/api/generate", json=body)
             comments = json.loads(comments.content)
             comments = comments['response'].split(";")
 
